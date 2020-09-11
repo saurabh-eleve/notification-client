@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import io from 'socket.io-client';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const socket = io('https://rtnserver.herokuapp.com');
+// const socket = io('https://rtnserver.herokuapp.com');
+const socket = io("https://api.eleveglobal.com/");
 
 export default class App extends Component{
   constructor(props){
@@ -17,20 +18,33 @@ export default class App extends Component{
   }
 
   componentDidMount = () => {
-    let _ = this;
-    socket.on('connect', () => {
+
+    // let _ = this;
+    socket.on('connection', () => {
       console.log('Client is Connected');
     });
-    // emitting to get notifications
-    socket.emit('notifications');
-    // listeing to get notitications
-    socket.on('allnotifications', function(val){
-      _.handleNotifications(val);
+    console.log('Hello World')
+    // emitting to get notifications count
+    socket.emit(
+      'updateNotificationCount',
+      {
+        userId:'5d3a9ecfbdad1d64243be164', 
+        platform: 'influencer'
+      },
+      (val) => {
+      console.log(val)
     });
 
-    socket.on('notificationCreated', function(val){
-      _.handleCreatedNotifications(val);
-    });
+    // // emitting to get notifications
+    // socket.emit('notifications');
+    // // listeing to get notitications
+    // socket.on('allnotifications', function(val){
+    //   _.handleNotifications(val);
+    // });
+    //
+    // socket.on('notificationCreated', function(val){
+    //   _.handleCreatedNotifications(val);
+    // });
   }
 
   handleNotifications = (notifications) => {
@@ -55,8 +69,8 @@ export default class App extends Component{
     const { notifications } = this.state;
     return (
       <div className="App">
-        <p>You have received {notifications.length} notifications.</p>
-        <button className="button" onClick={this.createNotification}>Create Notification</button>
+        {/* <p>You have received {notifications.length} notifications.</p> */}
+        {/* <button className="button" onClick={this.createNotification}>Create Notification</button> */}
         {
           notifications.map((n, i) => {
             return (
