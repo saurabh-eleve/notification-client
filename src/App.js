@@ -26,13 +26,14 @@ export default class App extends Component{
     console.log('Hello World')
     // emitting to get notifications count
     socket.emit(
-      'updateNotificationCount',
+      'getNotificationCount',
       {
-        userId:'5d3a9ecfbdad1d64243be164', 
+        userId:'5d3a9ecfbdad1d64243be164',
         platform: 'influencer'
-      },
-      (val) => {
-      console.log(val)
+      });
+
+    socket.on('updatedNotificationCount', function(val){
+      console.log('Ye raha data', val)
     });
 
     // // emitting to get notifications
