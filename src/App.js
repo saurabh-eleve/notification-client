@@ -35,7 +35,7 @@ export default class App extends Component{
     socket.on('updatedNotificationList', function(val){
       console.log('Logging All Notification List', val)
     });
-
+    console.log('New Notification Will show after this!')
     socket.emit(
       'getNewNotificationList',
       {
