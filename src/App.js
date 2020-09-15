@@ -23,17 +23,28 @@ export default class App extends Component{
     socket.on('connection', () => {
       console.log('Client is Connected');
     });
-    console.log('Hello World')
+    console.log('Hello World, Because it is working!')
     // emitting to get notifications count
     socket.emit(
-      'getNotificationCount',
+      'getNotificationList',
       {
-        userId:'5d3a9ecfbdad1d64243be164',
-        platform: 'influencer'
+        userId:'5d2592aa7b276a1d15bc453f',
+        platform: 'admin'
       });
 
-    socket.on('updatedNotificationCount', function(val){
-      console.log('Ye raha data', val)
+    socket.on('updatedNotificationList', function(val){
+      console.log('Logging All Notification List', val)
+    });
+
+    socket.emit(
+      'getNewNotificationList',
+      {
+        userId:'5d2592aa7b276a1d15bc453f',
+        platform: 'admin'
+      });
+
+    socket.on('updatedNewNotificationList', function(val){
+      console.log('Logging New Notifications', val)
     });
 
     // // emitting to get notifications
